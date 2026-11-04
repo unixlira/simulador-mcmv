@@ -2,16 +2,16 @@ import type { Metadata } from "next";
 import { BotaoSimularAgora } from "./botao-simular-agora";
 
 // Versão 2 da tela inicial: banner igual à imagem do Lira de 04/11 (uploads/20261104093351-1.jpg).
-// A versão 1 continua em "/". Foto e selo recortados da própria imagem.
+// A versão 1 continua em "/". Selo recortado da imagem; família nova (ChatGPT) com o prédio atrás e sem migalhas de pão (04/11, imagem 20261104105123-1.jpg).
 export const metadata: Metadata = { alternates: { canonical: "/" } };
 
 const AMARELO = "text-[#ffc20e]";
 
 function Vantagem({ icone, children }: { icone: React.ReactNode; children: React.ReactNode }) {
   return (
-    <li className="flex items-center gap-3 py-3 sm:justify-center sm:py-0">
-      <span className="shrink-0 text-white">{icone}</span>
-      <span className="text-[0.95rem] leading-tight font-semibold">{children}</span>
+    <li className="flex flex-col items-center gap-1.5 px-1.5 text-center sm:flex-row sm:justify-center sm:gap-3 sm:px-3 sm:text-left">
+      <span className="shrink-0 text-white [&>svg]:size-7 sm:[&>svg]:size-10">{icone}</span>
+      <span className="text-[0.7rem] leading-tight font-semibold sm:text-[0.95rem]">{children}</span>
     </li>
   );
 }
@@ -32,11 +32,6 @@ export default function HomeV2() {
       </div>
 
       <div className="relative mx-auto w-full max-w-6xl flex-1 px-5 pt-4 pb-8 sm:px-8 lg:pt-5 lg:pb-14">
-        <nav aria-label="Caminho" className="text-xs font-semibold text-white/90 sm:text-sm">
-          CAIXA <span className="mx-1.5">&gt;</span> Para você <span className="mx-1.5">&gt;</span> Habitação <span className="mx-1.5">&gt;</span> Minha
-          Casa, Minha Vida
-        </nav>
-
         {/* Selo do programa: no celular fica sobre a foto, no computador entre o texto e a família */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
@@ -44,7 +39,7 @@ export default function HomeV2() {
           alt="Minha Casa Minha Vida"
           width={175}
           height={160}
-          className="absolute top-12 right-4 w-24 rounded-2xl [mask-image:radial-gradient(ellipse_at_center,black_78%,transparent_100%)] sm:w-32 lg:top-8 lg:right-auto lg:left-[44%] lg:w-40"
+          className="absolute top-4 right-4 w-24 rounded-2xl [mask-image:radial-gradient(ellipse_at_center,black_78%,transparent_100%)] sm:w-32 lg:top-8 lg:right-auto lg:left-[44%] lg:w-40"
         />
 
         <div className="mt-[230px] max-w-xl sm:mt-[310px] lg:mt-6">
@@ -94,7 +89,8 @@ export default function HomeV2() {
           <path d="M0 40 C 400 40, 800 30, 1200 0 L1200 40 Z" fill="#0a2f78" />
           <path d="M0 38 C 400 38, 800 28, 1200 0" stroke="#ffc20e" strokeWidth="4" fill="none" />
         </svg>
-        <ul className="relative mx-auto grid max-w-6xl divide-y divide-white/15 px-6 py-3 sm:grid-cols-3 sm:divide-x-2 sm:divide-y-0 sm:divide-[#ffc20e] sm:py-6">
+        {/* Três colunas em qualquer tela; no computador sobra espaço à direita para a Ca flutuante não cobrir o texto */}
+        <ul className="relative mx-auto grid max-w-6xl grid-cols-3 divide-x-2 divide-[#ffc20e] px-2 py-4 sm:px-6 sm:py-6 lg:pr-72 2xl:pr-6">
           <Vantagem
             icone={
               <svg viewBox="0 0 24 24" className="size-10" fill="currentColor">
