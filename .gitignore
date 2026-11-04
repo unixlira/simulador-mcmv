@@ -6,3 +6,7 @@ dist/
 !.env.example
 *.tsbuildinfo
 coverage/
+out/
+# Dados de leads e config do servidor nunca vão ao git.
+servidor/_dados/
+servidor/api/_lib/config.local.php

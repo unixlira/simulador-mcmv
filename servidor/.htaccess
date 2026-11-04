@@ -1,0 +1,35 @@
+# Simulador MCMV na Hostinger compartilhada: site estático (Next.js export) + API em PHP.
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # HTTPS obrigatório.
+    RewriteCond %{HTTPS} off
+    RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+    # Bibliotecas e dados nunca são servidos.
+    RewriteRule ^api/_lib(/|$) - [F,L]
+    RewriteRule ^_dados(/|$) - [F,L]
+
+    # /api/simular -> api/simular.php, /api/admin/leads -> api/admin/leads.php
+    # END: a URL reescrita não passa de novo pelas regras (com L cairia no 404 abaixo).
+    RewriteRule ^api/((?:admin/)?[a-z-]+)/?$ api/$1.php [END,QSA]
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^api(/|$) - [R=404,L]
+</IfModule>
+
+ErrorDocument 404 /404.html
+
+# Homologação: fora do Google.
+Header set X-Robots-Tag "noindex, nofollow"
+Header set X-Content-Type-Options "nosniff"
+Header set Referrer-Policy "strict-origin-when-cross-origin"
+
+<IfModule mod_expires.c>
+    ExpiresActive On
+    ExpiresByType text/css "access plus 1 year"
+    ExpiresByType application/javascript "access plus 1 year"
+    ExpiresByType text/html "access plus 0 seconds"
+</IfModule>

@@ -26,7 +26,7 @@ export interface DadosLead {
   origem?: string;
 }
 
-// O /api é repassado à API NestJS pelo next.config.ts.
+// /api é PHP (pasta servidor/). Em desenvolvimento o next.config.ts repassa ao PHP local.
 export async function enviarLead(dados: DadosLead): Promise<{ lead_id: string; simulacao: Simulacao }> {
   const resposta = await fetch("/api/leads", {
     method: "POST",

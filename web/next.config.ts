@@ -1,12 +1,15 @@
 import type { NextConfig } from "next";
 
-// API NestJS (pasta api/). Na VPS o nginx pode servir /api direto; aqui o Next repassa.
-const API_URL = process.env.API_URL ?? "http://localhost:3001";
+// Exportação estática (pasta out/) para a Hostinger compartilhada: o /api é PHP (pasta servidor/).
+// Em desenvolvimento o Next repassa /api para o PHP local (npm run api, porta 8000).
+const API_URL = process.env.API_URL ?? "http://localhost:8000";
+const desenvolvimento = process.env.NODE_ENV === "development";
 
 const nextConfig: NextConfig = {
-  cacheComponents: true,
-  partialPrefetching: true,
+  output: desenvolvimento ? undefined : "export",
+  trailingSlash: true,
   poweredByHeader: false,
+  images: { unoptimized: true },
   turbopack: {
     rules: {
       "*.css": {
@@ -15,7 +18,9 @@ const nextConfig: NextConfig = {
       },
     },
   },
-  rewrites: async () => [{ source: "/api/:caminho*", destination: `${API_URL}/api/:caminho*` }],
+  ...(desenvolvimento && {
+    rewrites: async () => [{ source: "/api/:caminho*", destination: `${API_URL}/api/:caminho*` }],
+  }),
 };
 
 export default nextConfig;

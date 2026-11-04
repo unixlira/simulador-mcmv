@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "api": "php -S localhost:8000 -t ../servidor ../scripts/roteador-dev.php"
   },
   "dependencies": {
     "next": "16.4.5",
