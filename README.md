@@ -4,8 +4,8 @@ Site mobile-first que capta o lead, mostra a simulação de financiamento (tabel
 sem redutor da Beta Negócios, abril/2026) e leva a pessoa ao especialista no WhatsApp.
 Plano completo: `plano-acao-simulador-mcmv.md` (v1.0, 04/11/2026).
 
-Homologação: https://simulador.devlira.com.br (painel em `/admin/`, login `admin` / `admin123`;
-trocar a senha antes de produção em `servidor/api/_lib/config.local.php`).
+Homologação: https://simulador.devlira.com.br (painel em `/admin/`, também pelo ícone do bonequinho no topo;
+login fixo no código, `admin` / `12345678`, em `servidor/api/_lib/base.php`).
 
 ## Pastas
 
@@ -21,7 +21,8 @@ trocar a senha antes de produção em `servidor/api/_lib/config.local.php`).
 Sem banco de dados. Tudo em arquivos na pasta de dados, que no servidor fica fora do site
 (`~/domains/devlira.com.br/simulador-dados`, apontada por `api/_lib/config.local.php`, criado pelo script):
 
-- `leads.json` lista de leads (gravação com trava de arquivo, um pedido por vez).
+- `simulacoes/AAAA/MM/DD/HHMMSS-<id>.json` um arquivo por simulação (lead + resultado + status).
+  Um `leads.json` antigo é repartido nas pastas na primeira abertura do painel e guardado em `anteriores/`.
 - `tabela.csv` tabela ativa; na primeira vez é copiada de `api/_lib/tabela-exemplo.csv`.
 - `tabelas-anteriores/` cópia de cada tabela substituída (nada é apagado).
 - `sessoes/` e `limite/` sessão do painel e rate limit por IP.

@@ -22,7 +22,7 @@ $d = corpo_json();
 $usuario = is_string($d['usuario'] ?? null) ? trim($d['usuario']) : '';
 $senha = is_string($d['senha'] ?? null) ? $d['senha'] : '';
 
-if (!hash_equals(CONFIG['admin_usuario'], $usuario) || !password_verify($senha, CONFIG['admin_senha_hash'])) {
+if (!hash_equals(CONFIG['admin_usuario'], $usuario) || !hash_equals(CONFIG['admin_senha'], $senha)) {
     erro('usuário ou senha incorretos', 401);
 }
 

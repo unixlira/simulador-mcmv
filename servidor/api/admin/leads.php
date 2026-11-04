@@ -15,17 +15,13 @@ if ($metodo === 'POST') {
     $status = $d['status'] ?? null;
     if (!in_array($status, STATUS_LEAD, true)) erro('status inválido', 422);
 
-    $lead = com_arquivo('leads.json', function (array $leads) use ($id, $status) {
-        foreach ($leads as $i => $l) {
-            if ($l['id'] === $id) {
-                $leads[$i]['status'] = $status;
-                $leads[$i]['atualizado_em'] = date('c');
-                return [$leads, $leads[$i]];
-            }
-        }
-        return [null, null];
-    });
-    if (!$lead) erro('lead não encontrado', 404);
+    migrar_leads_json();
+    $arquivo = achar_simulacao($id);
+    if (!$arquivo) erro('lead não encontrado', 404);
+    $lead = json_decode((string) file_get_contents($arquivo), true);
+    $lead['status'] = $status;
+    $lead['atualizado_em'] = date('c');
+    gravar_json($arquivo, $lead);
     responder($lead);
 }
 
@@ -34,7 +30,7 @@ $ate = $_GET['ate'] ?? '';
 $faixa = $_GET['faixa'] ?? '';
 $status = $_GET['status'] ?? '';
 
-$leads = array_values(array_filter(ler_json('leads.json'), function (array $l) use ($de, $ate, $faixa, $status) {
+$leads = array_values(array_filter(listar_simulacoes(), function (array $l) use ($de, $ate, $faixa, $status) {
     $dia = substr($l['criado_em'], 0, 10);
     if ($de !== '' && $dia < $de) return false;
     if ($ate !== '' && $dia > $ate) return false;

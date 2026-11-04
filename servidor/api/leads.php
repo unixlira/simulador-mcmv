@@ -47,10 +47,7 @@ $lead = [
     'origem' => $origem,
     'criado_em' => date('c'),
 ];
-com_arquivo('leads.json', function (array $leads) use ($lead) {
-    $leads[] = $lead;
-    return [$leads, null];
-});
+salvar_simulacao($lead);
 
 // Pendência do Junior: canal da notificação (e-mail, WhatsApp, planilha).
 // Até lá o lead aparece só no painel /admin.

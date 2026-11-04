@@ -29,12 +29,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src="/logo-caixa.svg" alt="CAIXA" width={120} height={27} className="h-6 w-auto sm:h-7" />
             </Link>
-            <div aria-hidden="true" className="flex items-center gap-4">
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
-                <circle cx="12" cy="8" r="4" />
-                <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" strokeLinecap="round" />
-              </svg>
-              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
+            <div className="flex items-center gap-4">
+              <Link href="/admin/" aria-label="Área administrativa" className="-m-2 p-2">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
+                  <circle cx="12" cy="8" r="4" />
+                  <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" strokeLinecap="round" />
+                </svg>
+              </Link>
+              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
               </svg>
             </div>

@@ -1,6 +1,7 @@
 <?php
 // Base comum dos endpoints: configuração, resposta JSON, arquivos de dados e rate limit.
-// Sem banco: leads e tabela ficam em arquivos na pasta de dados (fora do site no servidor).
+// Sem banco: cada simulação é um arquivo JSON em simulacoes/AAAA/MM/DD/ e a tabela é um CSV,
+// todos na pasta de dados (fora do site no servidor).
 
 declare(strict_types=1);
 
@@ -9,9 +10,9 @@ date_default_timezone_set('America/Sao_Paulo');
 $config = [
     // Pasta dos dados. No servidor o config.local.php aponta para fora do public_html.
     'dados' => dirname(__DIR__, 2) . '/_dados',
-    // Login do painel. Homologação: admin / admin123 (troque antes de ir a produção).
+    // Login do painel fixo no código, a pedido do Lira (04/11), até o cliente decidir se terá banco.
     'admin_usuario' => 'admin',
-    'admin_senha_hash' => '$2y$10$gnhe4SZBe8MZOjCxKrqapuMReYglbMJ07ZuQQvi/QvdoVJoEKhuWC',
+    'admin_senha' => '12345678',
     // Pedidos por minuto por IP em toda a API.
     'limite_por_minuto' => 20,
 ];
@@ -79,6 +80,62 @@ function com_arquivo(string $nome, callable $alterar): mixed
 function ler_json(string $nome): array
 {
     return com_arquivo($nome, fn ($atual) => [null, $atual]);
+}
+
+// Simulações: um arquivo por simulação em simulacoes/AAAA/MM/DD/HHMMSS-<id>.json.
+const PASTA_SIMULACOES = 'simulacoes';
+
+function gravar_json(string $caminho, array $dados): void
+{
+    $pasta = dirname($caminho);
+    if (!is_dir($pasta)) mkdir($pasta, 0750, true);
+    $temporario = $caminho . '.tmp';
+    file_put_contents($temporario, json_encode($dados, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT | JSON_PRESERVE_ZERO_FRACTION));
+    rename($temporario, $caminho);
+}
+
+function arquivo_simulacao(array $simulacao): string
+{
+    $quando = strtotime($simulacao['criado_em']);
+    return DADOS . '/' . PASTA_SIMULACOES . '/' . date('Y/m/d', $quando) . '/' . date('His', $quando) . '-' . $simulacao['id'] . '.json';
+}
+
+function salvar_simulacao(array $simulacao): void
+{
+    gravar_json(arquivo_simulacao($simulacao), $simulacao);
+}
+
+function achar_simulacao(string $id): ?string
+{
+    if (!preg_match('/^[0-9a-f-]{36}$/', $id)) return null;
+    return glob(DADOS . '/' . PASTA_SIMULACOES . "/*/*/*/*-$id.json")[0] ?? null;
+}
+
+function listar_simulacoes(): array
+{
+    migrar_leads_json();
+    $lista = [];
+    foreach (glob(DADOS . '/' . PASTA_SIMULACOES . '/*/*/*/*.json') ?: [] as $arquivo) {
+        $s = json_decode((string) file_get_contents($arquivo), true);
+        if (is_array($s)) $lista[] = $s;
+    }
+    return $lista;
+}
+
+// Leads gravados antes das pastas (um leads.json só): passa cada um para o seu arquivo e
+// guarda o leads.json em anteriores/, sem apagar nada.
+function migrar_leads_json(): void
+{
+    $antigo = DADOS . '/leads.json';
+    if (!is_file($antigo)) return;
+    com_arquivo('leads.json', function (array $leads) {
+        foreach ($leads as $l) {
+            if (is_array($l) && isset($l['id'], $l['criado_em']) && !achar_simulacao($l['id'])) salvar_simulacao($l);
+        }
+        return [null, null];
+    });
+    if (!is_dir(DADOS . '/anteriores')) mkdir(DADOS . '/anteriores', 0750, true);
+    rename($antigo, DADOS . '/anteriores/leads-' . date('Ymd-His') . '.json');
 }
 
 // Tabela ativa: tabela.csv na pasta de dados. Na primeira vez copia a de exemplo do site.
