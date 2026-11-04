@@ -1,5 +1,10 @@
 @import "tailwindcss";
 
+/* Fonte oficial da Caixa (caixa.gov.br/Style Library/fonts), liberada pelo Lira em 04/11. */
+@font-face { font-family: "CAIXA Std"; src: url("/fontes/CAIXAStd-Book.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+@font-face { font-family: "CAIXA Std"; src: url("/fontes/CAIXAStd-SemiBold.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+@font-face { font-family: "CAIXA Std"; src: url("/fontes/CAIXAStd-Bold.woff2") format("woff2"); font-weight: 700 900; font-display: swap; }
+
 /* Layout no fluxo da imagem enviada pelo Lira em 04/11 (azul e verde-água com laranja). */
 @theme inline {
   --color-marca: #0b4aa2;
@@ -11,7 +16,8 @@
   --color-titulo: #0d2b6b;
   --color-ouro: #b8650f;
   --color-fundo: #eaf3fc;
-  --font-sans: var(--font-nunito);
+  --color-caixa-amarelo: #f9b200;
+  --font-sans: "CAIXA Std", var(--font-nunito), sans-serif;
 }
 
 body {

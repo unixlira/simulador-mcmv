@@ -14,3 +14,9 @@ export function linkWhatsapp(nome: string, renda: number, valorLiberado?: number
   ];
   return `https://wa.me/${NUMERO}?text=${encodeURIComponent(linhas.join("\n"))}`;
 }
+
+// Link curto da assistente Ca, sem dados da simulação.
+export function linkWhatsappContato(): string | null {
+  if (!whatsappConfigurado) return null;
+  return `https://wa.me/${NUMERO}?text=${encodeURIComponent("Olá! Quero tirar uma dúvida sobre o financiamento da minha casa.")}`;
+}

@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Nunito } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
+import { AssistenteCa } from "@/components/assistente-ca";
 import { AVISO } from "@/components/aviso-legal";
 import { LinkPrivacidade } from "@/components/privacidade";
 import "./globals.css";
@@ -30,12 +31,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
               <img src="/logo-caixa.svg" alt="CAIXA" width={120} height={27} className="h-6 w-auto sm:h-7" />
             </Link>
             <div className="flex items-center gap-4">
+              <span aria-hidden="true" className="h-6 border-l-3 border-caixa-amarelo" />
               <Link href="/admin/" aria-label="Área administrativa" className="-m-2 p-2">
                 <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
                   <circle cx="12" cy="8" r="4" />
                   <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" strokeLinecap="round" />
                 </svg>
               </Link>
+              <span aria-hidden="true" className="h-6 border-l-3 border-caixa-amarelo" />
               <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
                 <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
               </svg>
@@ -47,18 +50,19 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
 
         <footer className="rodape text-white">
           <div aria-hidden="true" className="h-1 bg-gradient-to-r from-destaque via-destaque to-agua" />
-          <div className="mx-auto grid max-w-6xl gap-5 px-6 py-8 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
+          <div className="mx-auto grid max-w-6xl gap-6 px-6 py-8 sm:grid-cols-[1fr_auto] sm:items-center sm:gap-8">
             <div>
               <p className="text-lg font-extrabold tracking-tight">Beta Negócios</p>
               <p className="mt-1 text-sm text-white/75">Simulação de financiamento habitacional na Zona Leste de São Paulo</p>
+              <LinkPrivacidade className="mt-4 inline-flex w-fit items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-sm font-semibold no-underline! transition hover:border-white/60 hover:bg-white/10">
+                <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z" strokeLinejoin="round" />
+                  <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                Política de Privacidade
+              </LinkPrivacidade>
             </div>
-            <LinkPrivacidade className="inline-flex w-fit items-center gap-2 rounded-full border border-white/25 px-4 py-2 text-sm font-semibold no-underline! transition hover:border-white/60 hover:bg-white/10">
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M12 3l7 3v5c0 4.5-3 8.3-7 10-4-1.7-7-5.5-7-10V6z" strokeLinejoin="round" />
-                <path d="M9 12l2 2 4-4" strokeLinecap="round" strokeLinejoin="round" />
-              </svg>
-              Política de Privacidade
-            </LinkPrivacidade>
+            <AssistenteCa />
           </div>
           <div className="border-t border-white/10">
             <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-5 text-xs leading-relaxed text-white/60 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
