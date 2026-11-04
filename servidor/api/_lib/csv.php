@@ -78,8 +78,9 @@ function ler_csv(string $conteudo): array
             continue;
         }
 
-        if ($l['renda'] < RENDA_MINIMA || $l['renda'] > RENDA_MAXIMA || fmod($l['renda'], 100) != 0)
-            $erros[] = "linha $n: renda {$l['renda']} fora de 1.000 a 13.000 ou não é múltiplo de 100";
+        // A tabela vai de 100 em 100, com exceções (o PDF tem a linha de R$ 2.850).
+        if ($l['renda'] < RENDA_MINIMA || $l['renda'] > RENDA_MAXIMA)
+            $erros[] = "linha $n: renda {$l['renda']} fora de 1.000 a 13.000";
         if (!in_array($l['faixa'], [1.0, 2.0, 3.0, 4.0], true)) $erros[] = "linha $n: faixa {$l['faixa']} não é 1 a 4";
         if ($l['financiamento'] > $l['valorAvaliacao'] * COTA_MAXIMA + 0.005)
             $erros[] = "linha $n: financiamento {$l['financiamento']} passa de 80% do imóvel {$l['valorAvaliacao']}";

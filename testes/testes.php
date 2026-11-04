@@ -1,6 +1,6 @@
 <?php
 // Testes do cálculo e do CSV (sem banco, sem servidor): php testes/testes.php
-// Casos da seção 13 do plano contra a tabela da seção 7.3.
+// Casos da seção 13 do plano contra a tabela completa do PDF (122 linhas).
 require __DIR__ . '/../servidor/api/_lib/csv.php';
 
 $falhas = 0;
@@ -47,15 +47,27 @@ $r = montar_resultado(1000, $linha(1000), true);
 confere('liberado 1000', $r['valorLiberado'], 111132.57);
 confere('entrada 1000', $r['entradaEstimada'], 163867.43);
 $r = montar_resultado(2000, $linha(2000), false);
-confere('sem dependente subsídio', $r['subsidio'], 0);
-confere('sem dependente entrada', $r['entradaEstimada'], 158826.17);
+confere('sem dependente subsídio', $r['subsidio'], 15233);
+confere('sem dependente entrada', $r['entradaEstimada'], 143593.17);
+$r = montar_resultado(5000, $linha(5000), false);
+confere('sem dependente faixa 2', $r['subsidio'], 0);
 $r = simular($tabela, 2070, true);
 confere('renda quebrada informada', $r['rendaInformada'], 2070);
 confere('renda quebrada tabela', $r['rendaTabela'], 2000);
 confere('800 fora', simular($tabela, 800, true)['foraDaFaixa'], true);
 confere('14000 fora', simular($tabela, 14000, true)['foraDaFaixa'], true);
-// 1.100 está dentro da faixa mas falta na tabela de exemplo: vai ao especialista.
-confere('sem linha vai ao especialista', simular($tabela, 1100, true)['foraDaFaixa'], true);
+confere('tabela completa', count($tabela), 122);
+// A linha de R$ 2.850 existe no PDF: 2870 usa ela, 2849 usa a de 2.800.
+confere('2870 usa 2850', simular($tabela, 2870, true)['rendaTabela'], 2850);
+confere('2849 usa 2800', simular($tabela, 2849, true)['rendaTabela'], 2800);
+confere('11200 (linha quebrada no PDF)', simular($tabela, 11200, true)['valorFinanciado'], 373822.47);
+// 1ª parcela dinâmica: 30% da renda digitada, não o valor da coluna do PDF.
+confere('parcela 2870', simular($tabela, 2870, true)['primeiraParcela'], 861);
+confere('parcela 7000 (PDF dizia 2.000,05)', simular($tabela, 7000, true)['primeiraParcela'], 2100);
+confere('parcela 11900 (PDF dizia 3.565)', simular($tabela, 11900, true)['primeiraParcela'], 3570);
+confere('parcela 1234,56', simular($tabela, 1234.56, true)['primeiraParcela'], 370.37);
+$semLinha = array_values(array_filter($tabela, fn ($l) => (int) $l['renda'] !== 1100));
+confere('sem linha vai ao especialista', simular($semLinha, 1150, true)['foraDaFaixa'], true);
 
 confere('numero br', ler_numero('1.234,56'), 1234.56);
 confere('numero R$', ler_numero('R$ 373.822,47'), 373822.47);
