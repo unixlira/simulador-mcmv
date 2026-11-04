@@ -3,7 +3,7 @@
 export function Familia({ className = "" }: { className?: string }) {
   return (
     // eslint-disable-next-line @next/next/no-img-element
-    <img src="/familia.webp" alt="Família sorrindo abraçada" width={404} height={684} className={className} />
+    <img src="/familia-v2.webp" alt="Família sorrindo abraçada" width={800} height={1200} className={className} />
   );
 }
 
