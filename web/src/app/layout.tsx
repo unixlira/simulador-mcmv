@@ -9,10 +9,18 @@ import "./globals.css";
 
 const nunito = Nunito({ variable: "--font-nunito", subsets: ["latin"] });
 
+const TITULO = "Simulação de financiamento habitacional | Beta Negócios";
+const DESCRICAO =
+  "Simule o financiamento da sua casa pelo Minha Casa Minha Vida na Zona Leste de São Paulo e fale com um especialista da Beta Negócios.";
+// Imagem que aparece quando o link é compartilhado (WhatsApp, Facebook, Instagram): 1200x630.
+const IMAGEM = { url: "/og-compartilhar.jpg", width: 1200, height: 630, alt: "Minha Casa, Minha Vida Zona Leste: simule o financiamento da sua casa" };
+
 export const metadata: Metadata = {
-  title: "Simulação de financiamento habitacional | Beta Negócios",
-  description:
-    "Simule o financiamento da sua casa pelo Minha Casa Minha Vida na Zona Leste de São Paulo e fale com um especialista da Beta Negócios.",
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL ?? "https://simulador.devlira.com.br"),
+  title: TITULO,
+  description: DESCRICAO,
+  openGraph: { type: "website", locale: "pt_BR", siteName: "Beta Negócios", title: TITULO, description: DESCRICAO, images: [IMAGEM] },
+  twitter: { card: "summary_large_image", title: TITULO, description: DESCRICAO, images: [IMAGEM.url] },
 };
 
 export const viewport: Viewport = { themeColor: "#12397c" };
