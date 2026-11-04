@@ -1,0 +1,13 @@
+# SÓ PARA DESENVOLVIMENTO. As 9 linhas de exemplo da seção 7.3 do plano de ação.
+# Não é a tabela oficial: falta o subsídio sem dependente e as outras ~110 rendas.
+# A tabela real sai do PDF Tabela_420_Meses_Sem_Redutor_V7.pdf (Beta Negócios).
+renda;subsidio_com_dependente;financiamento;subsidio_sem_dependente;primeira_prestacao;valor_avaliacao;juros_nominal;juros_efetivo;faixa
+1000,00;55000,00;56132,57;;300,00;275000,00;4,75;4,85;1
+2000,00;50777,00;116173,83;;600,00;275000,00;4,75;4,85;1
+3200,00;6011,00;172228,77;;960,00;275000,00;5,25;5,37;1
+3300,00;4659,00;172588,97;;990,00;275000,00;5,50;5,64;2
+5000,00;;220000,00;;1500,00;350000,00;7,00;7,22;2
+5100,00;;198034,42;;1530,00;400000,00;8,16;8,47;3
+9600,00;;320000,00;;2880,00;400000,00;8,16;8,47;3
+9700,00;;322126,38;;2910,00;600000,00;10,00;10,47;4
+13000,00;;435857,78;;3900,00;600000,00;10,00;10,47;4
