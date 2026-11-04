@@ -58,14 +58,14 @@ Rate limit: 20 pedidos por minuto por IP na API pública; 5 tentativas de login 
 - Importar a tabela guarda a anterior em `tabelas-anteriores/`. O CSV é recusado
   inteiro se tiver renda repetida, fora de 1.000 a 13.000, campo vazio ou financiamento acima
   de 80% do imóvel. A regra dos 80% é conferida na importação; o cálculo nunca altera número da tabela.
+- Linha usada: a de maior renda que não passa da informada (o PDF tem a linha extra de R$ 2.850).
+- 1ª parcela = 30% da renda digitada (ordem do Lira em 04/11: a coluna do PDF é só exemplo).
 - A primeira versão (NestJS + PostgreSQL) está no histórico do git, commit `d6be17e`.
 
 ## Falta para o MVP
 
-1. **Tabela real.** `servidor/api/_lib/tabela-exemplo.csv` tem só as 9 linhas de exemplo do plano e sem
-   subsídio sem dependente. Precisa do PDF `Tabela_420_Meses_Sem_Redutor_V7.pdf` para gerar o CSV
-   completo (~120 linhas) e conferir os pontos da seção 7.4 (linha de R$ 11.200 quebrada,
-   parcela fixa de R$ 2.000,05, financiamento travado em R$ 320.000).
+1. **Tabela real:** feita em 04/11. `servidor/api/_lib/tabela-exemplo.csv` tem as 122 linhas do PDF
+   `Tabela_420_Meses_Sem_Redutor_V7.pdf` (linha de R$ 11.200 corrigida).
 2. Notificação de lead ao Junior (hoje só no painel).
 3. Identidade visual da Giovanna (cores atuais são provisórias, sem nada da Caixa).
 4. Domínio próprio do Junior e produção (hoje só homologação).
@@ -74,7 +74,6 @@ Rate limit: 20 pedidos por minuto por IP na API pública; 5 tentativas de login 
 
 - Ajuste por idade (a tabela vale para 35 anos).
 - Valor liberado = financiamento + subsídio (assumido) ou só financiamento.
-- Parcela fixa de R$ 2.000,05 entre R$ 6.800 e R$ 8.600 está correta?
 - É correspondente Caixa Aqui? Marca e domínio do site.
 - Número de WhatsApp que recebe os leads (`NEXT_PUBLIC_WHATSAPP_NUMERO`; sem ele o botão fica desligado).
 - Mostrar enquadramento HIS no resultado?
