@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Inter } from "next/font/google";
+import { Nunito } from "next/font/google";
 import Link from "next/link";
 import Script from "next/script";
 import { AvisoLegal } from "@/components/aviso-legal";
+import { LinkPrivacidade } from "@/components/privacidade";
 import "./globals.css";
 
-const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
+const nunito = Nunito({ variable: "--font-nunito", subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Simulação de financiamento habitacional | Beta Negócios",
@@ -13,31 +14,39 @@ export const metadata: Metadata = {
     "Simule o financiamento da sua casa pelo Minha Casa Minha Vida na Zona Leste de São Paulo e fale com um especialista da Beta Negócios.",
 };
 
-export const viewport: Viewport = { themeColor: "#1b3a6b" };
+export const viewport: Viewport = { themeColor: "#12397c" };
 
 const PIXEL = process.env.NEXT_PUBLIC_META_PIXEL_ID;
 const GA4 = process.env.NEXT_PUBLIC_GA4_ID;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="pt-BR" className={`${inter.variable} h-full antialiased`}>
+    <html lang="pt-BR" className={`${nunito.variable} h-full antialiased`}>
       <body className="flex min-h-full flex-col font-sans">
-        <header className="bg-marca text-white">
-          <div className="mx-auto flex max-w-3xl items-center px-5 py-4">
-            <Link href="/" className="text-lg font-bold tracking-tight">
-              Beta <span className="text-destaque">Negócios</span>
+        <header className="faixa-topo text-white">
+          <div className="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+            <Link href="/" aria-label="Início">
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img src="/logo-caixa.svg" alt="CAIXA" width={120} height={27} className="h-6 w-auto sm:h-7" />
             </Link>
+            <div aria-hidden="true" className="flex items-center gap-4">
+              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
+                <circle cx="12" cy="8" r="4" />
+                <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" strokeLinecap="round" />
+              </svg>
+              <svg viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
+                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
+              </svg>
+            </div>
           </div>
         </header>
 
-        <main className="flex-1">{children}</main>
+        <main className="flex flex-1 flex-col">{children}</main>
 
         <footer className="border-t border-slate-200 bg-white">
-          <div className="mx-auto max-w-3xl space-y-2 px-5 py-6">
+          <div className="mx-auto max-w-6xl space-y-2 px-5 py-5">
             <AvisoLegal />
-            <Link href="/privacidade" className="text-xs text-marca underline">
-              Política de privacidade
-            </Link>
+            <LinkPrivacidade className="text-xs text-marca" />
           </div>
         </footer>
 

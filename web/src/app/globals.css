@@ -1,17 +1,36 @@
 @import "tailwindcss";
 
-/* Cores provisórias da Beta Negócios até a identidade da Giovanna (semana 1).
-   Azul e laranja próprios: nada de logo, tom ou layout da Caixa. */
+/* Layout no fluxo da imagem enviada pelo Lira em 04/11 (azul e verde-água com laranja). */
 @theme inline {
-  --color-marca: #1b3a6b;
-  --color-marca-escura: #12284b;
-  --color-destaque: #e8662a;
-  --color-destaque-escura: #c9521b;
-  --color-fundo: #f6f7fb;
-  --font-sans: var(--font-inter);
+  --color-marca: #0b4aa2;
+  --color-marca-escura: #0a3478;
+  --color-destaque: #f7941d;
+  --color-destaque-escura: #d97b0b;
+  --color-agua: #17b3ab;
+  --color-agua-escura: #0f9890;
+  --color-titulo: #0d2b6b;
+  --color-ouro: #b8650f;
+  --color-fundo: #eaf3fc;
+  --font-sans: var(--font-nunito);
 }
 
 body {
   background: var(--color-fundo);
   color: #0f172a;
+}
+
+.fundo-azul {
+  background: linear-gradient(165deg, #0c3a9e 0%, #0a5cb4 55%, #0a8ac4 100%);
+}
+
+.faixa-topo {
+  background: linear-gradient(90deg, #12397c 0%, #0b5fae 55%, #17b7ad 100%);
+}
+
+.botao-agua {
+  background: linear-gradient(90deg, #12a4a8 0%, #1bbdb0 100%);
+}
+
+dialog::backdrop {
+  background: rgb(10 30 70 / 0.6);
 }

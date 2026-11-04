@@ -1,22 +1,32 @@
+import { ArcosFundo, Familia } from "@/components/visual";
 import { BotaoSimular } from "./botao-simular";
 
+// Tela 1 da imagem: fundo azul, título, família e o botão SIMULE.
 export default function Home() {
   return (
-    <section className="mx-auto max-w-3xl px-5 py-12 sm:py-20">
-      <p className="text-sm font-semibold uppercase tracking-wide text-destaque">Minha Casa Minha Vida</p>
-      <h1 className="mt-3 text-3xl font-bold leading-tight text-marca sm:text-5xl">
-        Simulação para a Zona Leste de São Paulo
-      </h1>
-      <p className="mt-4 max-w-xl text-lg text-slate-600">
-        Informe sua renda e veja em um minuto o valor do imóvel, o subsídio e a primeira parcela.
-        Depois, um especialista da Beta Negócios tira suas dúvidas no WhatsApp.
-      </p>
-      <BotaoSimular />
-      <ul className="mt-10 grid gap-3 text-sm text-slate-600 sm:grid-cols-3">
-        <li className="rounded-xl bg-white p-4 shadow-sm">Prazo de até 420 meses</li>
-        <li className="rounded-xl bg-white p-4 shadow-sm">Subsídio conforme renda e dependentes</li>
-        <li className="rounded-xl bg-white p-4 shadow-sm">Sem custo para simular</li>
-      </ul>
+    <section className="fundo-azul relative flex flex-1 overflow-hidden text-white">
+      <ArcosFundo />
+      <div className="relative mx-auto grid w-full max-w-6xl flex-1 grid-rows-[auto_1fr_auto] px-6 pt-10 pb-12 lg:grid-cols-2 lg:grid-rows-1 lg:items-center lg:gap-10 lg:py-16">
+        <div className="z-10 lg:order-1">
+          <h1 className="text-[1.7rem] leading-tight font-extrabold sm:text-4xl xl:text-[2.6rem]">
+            Minha Casa, Minha Vida
+            <br />
+            Zona Leste
+          </h1>
+          <p className="mt-2 max-w-md text-base text-white/90 sm:text-lg">
+            Simule o financiamento da sua casa em um minuto, sem custo.
+          </p>
+          <div className="hidden lg:block">
+            <BotaoSimular />
+          </div>
+        </div>
+        <div className="-mt-6 flex justify-end lg:order-2 lg:mt-0 lg:justify-center">
+          <Familia className="h-auto w-[62%] max-w-[300px] sm:w-[45%] lg:w-full lg:max-w-[380px]" />
+        </div>
+        <div className="lg:hidden">
+          <BotaoSimular />
+        </div>
+      </div>
     </section>
   );
 }
