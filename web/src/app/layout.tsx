@@ -65,7 +65,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                 Política de Privacidade
               </LinkPrivacidade>
             </div>
-            <AssistenteCa />
           </div>
           <div className="border-t border-white/10">
             <div className="mx-auto flex max-w-6xl flex-col gap-3 px-6 py-5 text-xs leading-relaxed text-white/60 sm:flex-row sm:items-start sm:justify-between sm:gap-8">
@@ -74,6 +73,8 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
             </div>
           </div>
         </footer>
+
+        <AssistenteCa />
 
         {PIXEL && (
           <Script id="meta-pixel">{`!function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,document,'script','https://connect.facebook.net/en_US/fbevents.js');fbq('init','${PIXEL}');fbq('track','PageView');`}</Script>

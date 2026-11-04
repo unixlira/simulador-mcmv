@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { linkWhatsappContato } from "@/lib/whatsapp";
 
-// Assistente virtual da Caixa ("Ca") no rodapé, no modelo da imagem enviada pelo Lira em 04/11.
+// Assistente virtual da Caixa ("Ca"), flutuante no canto da tela como o botão do WhatsApp (pedido do Lira em 04/11).
 // Com o número do WhatsApp configurado abre a conversa; sem ele leva à simulação.
 export function AssistenteCa() {
   const whatsapp = linkWhatsappContato();
@@ -22,7 +22,8 @@ export function AssistenteCa() {
       />
     </>
   );
-  const classe = "flex w-fit items-center gap-2 no-underline transition hover:-translate-y-0.5";
+  const classe =
+    "fixed right-4 bottom-4 z-50 flex w-fit items-center gap-2 no-underline transition hover:-translate-y-0.5 sm:right-6 sm:bottom-6";
 
   return whatsapp ? (
     <a href={whatsapp} target="_blank" rel="noopener noreferrer" className={classe}>
