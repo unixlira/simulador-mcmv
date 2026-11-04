@@ -46,10 +46,6 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
                   <path d="M4 21c1.5-4 4.5-6 8-6s6.5 2 8 6" strokeLinecap="round" />
                 </svg>
               </Link>
-              <span aria-hidden="true" className="h-6 border-l-3 border-caixa-amarelo" />
-              <svg aria-hidden="true" viewBox="0 0 24 24" className="size-5" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M4 7h16M4 12h16M4 17h16" strokeLinecap="round" />
-              </svg>
             </div>
           </div>
         </header>
