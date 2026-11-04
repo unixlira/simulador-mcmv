@@ -1,0 +1,15 @@
+# Postgres para desenvolvimento. O esquema entra sozinho na primeira subida.
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: simulador
+      POSTGRES_USER: simulador
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-troque-esta-senha}
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./api/db/schema.sql:/docker-entrypoint-initdb.d/01-schema.sql:ro
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata:
